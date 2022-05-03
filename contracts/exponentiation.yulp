@@ -1,0 +1,16 @@
+{
+2	    function power(base, exponent) -> result
+3	    {
+4	        switch exponent
+5	        case 0 { result := 1 }
+6	        case 1 { result := base }
+7	        default
+8	        {
+9	            result := power(mul(base, base), div(exponent, 2))
+10	            if mod(exponent, 2) { result := mul(base, result) }
+11	        }
+12	    }
+13	    let res := power(calldataload(0), calldataload(32))
+14	    mstore(0, res)
+15	    return(0, 32)
+16	}
