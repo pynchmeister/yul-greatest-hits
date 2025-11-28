@@ -1,25 +1,162 @@
-# yul-greatest-hits
-A collection of my work done in Yul/Yul+ from basic token standards, to advanced Defi primitives
+🔥 Yul Greatest Hits
 
-## Background
+A collection of low-level EVM patterns, micro-primitives, and optimizations written in pure Yul / Yul+
 
-Yul (previously also called JULIA or IULIA) is an intermediate language that can be compiled to bytecode for different backends.
+This repository is a curated set of experiments, patterns, and implementation techniques exploring raw EVM execution using Yul and Yul+.
+It covers everything from minimal ERC standards to advanced DeFi building blocks, gas-optimized control flow, storage/memory patterns, and opcode-aware micro-architectures.
 
-Yul is a good target for high-level optimisation stages that can benefit all target platforms equally.
+The goal is to develop a deep, practical understanding of the EVM as a computation model — the kind required for protocol engineering, performance-critical smart contracts, and security-sensitive primitives.
 
-### About Yul
+⸻
 
-  - Yul provides for loops, if and switch statements
-  - No explicit statements for SWAP, DUP, JUMPDEST, JUMP and JUMPI are provided (as they obfuscate data flow and control flow)
-  - Statements such as mul(add(x, y),z) are preferred over 7 y x add mul, because it becomes easier to see which opcode is being used for which operand
-  - Yul is desigend for a stack based machine (EVM) but it does not expose the programmer to the complexity of the stack itself
-  - Yul is statically typed, but also there is a default type (integer word of the target machine) that can be omitted.
-  - Yul does not have any built-in operations, functions or types in its pure form. 6.1 There exists only one specified dialect of Yul and that uses the EVM opcodes as builtin functions and defines only the type u256 (native 256-bit type of EVM)
+⭐ Why Yul?
 
-### Tools
+Yul is a low-level intermediate language that compiles directly to EVM bytecode.
+It offers a perfect balance between:
+	•	The control of raw opcodes
+	•	The readability of structured programming
+	•	The optimization potential of hand-crafted bytecode
+	•	The mental model needed for protocol-level engineering
 
-Lorem opsum
+Yul is used for:
+	•	Writing gas-critical components
+	•	Custom memory & storage layouts
+	•	DeFi/math primitives
+	•	Minimal proxies
+	•	Cryptographic routines
+	•	System-level contracts
+	•	EIP implementations
+	•	Auditing and vulnerability research
+	•	Understanding EVM execution deeply
 
-### Yul+ 
+⸻
 
+⭐ What This Repository Contains
 
+🧩 1. Minimal ERC Implementations
+
+Bare-metal ERC-20 / ERC-721 / ERC-1155 style patterns using minimal storage and execution logic.
+
+Focus:
+	•	zero-overhead function selectors
+	•	calldata decoding
+	•	storage slot math
+	•	packed structs
+	•	custom revert patterns
+
+⸻
+
+⚙️ 2. DeFi Micro-Primitives
+
+Low-level foundations used inside AMMs, DEXes, and money markets:
+	•	Safe arithmetic patterns
+	•	Constant-product & curve math
+	•	Reserve accounting
+	•	Fee models
+	•	Swap kernels
+	•	Oracle-style read-only paths
+
+These are written with explicit gas-model awareness: stack pressure, memory reuse, branching cost, and warm/cold SLOAD patterns.
+
+⸻
+
+🧮 3. Gas Optimization Patterns
+
+A collection of before/after transformations showing how to reduce:
+	•	memory expansion
+	•	redundant SLOAD/SSTORE
+	•	stack shuffling
+	•	branching overhead
+	•	function dispatch cost
+	•	error handling gas
+
+Includes patterns such as:
+	•	fallback-driven dispatch
+	•	function-selector jump tables
+	•	reusable scratch memory
+	•	inlined arithmetic vs. subroutines
+
+⸻
+
+🧱 4. Control-Flow Experiments
+
+Explorations of how to structure execution in Yul:
+	•	manual jump tables
+	•	loop unrolling
+	•	switch vs. if branching
+	•	early exit patterns
+	•	zero-copy calldata slicing
+	•	using assembly blocks for Solidity interop
+
+⸻
+
+📦 5. Storage & Memory Layout Techniques
+
+Patterns for:
+	•	efficient storage slot packing
+	•	struct layout
+	•	pointer-style memory operations
+	•	transient scratch space
+	•	calldata pointers vs. memory copies
+	•	high-density data formats
+
+These techniques are essential for high-performance protocols, rollup precompiles, and system contracts.
+
+⸻
+
+🔐 6. Security-Oriented Yul Patterns
+
+Experiments involving:
+	•	reentrancy-aware control flow
+	•	custom authorization logic
+	•	manual return data handling
+	•	calldata validation
+	•	invariant boundaries
+
+These help develop intuition for auditing and secure system design.
+
+⸻
+
+🔬 7. Yul+ Extensions (If Used)
+
+Yul+ adds syntactic sugar on top of raw Yul:
+	•	typed variables
+	•	structured control flow
+	•	easier memory management
+	•	safer arithmetic helpers
+	•	cleaner inlining/abstractions
+
+This repo may contain examples in both Yul and Yul+ for comparison.
+
+⸻
+
+⭐ Background: What Makes Yul Special
+
+Yul is an intermediate language designed for optimization, with properties that make it ideal for EVM-level engineering:
+	•	Structured syntax (loops, if/switch)
+	•	No explicit stack-touching ops (SWAP, DUP, etc.) → clearer data flow
+	•	Minimal abstractions → predictable performance
+	•	Statically typed (with a default u256 type)
+	•	Expressive enough to model most system-level patterns
+	•	Compiles directly to efficient bytecode
+
+It allows you to reason in terms of EVM execution traces without drowning in raw opcode sequences — the sweet spot between Solidity and assembly.
+
+⸻
+
+🛠️ Tools Used
+	•	Foundry (forge / cast) for compilation, gas snapshots, and testing
+	•	Yul / Yul+ compiler targets
+	•	EVM bytecode disassembly tools
+	•	Gas profilers (Foundry debug tools)
+	•	Opcodes inspectors
+
+⸻
+
+🎯 Goals of This Repository
+	•	Improve mastery over EVM internals
+	•	Build intuition for protocol-level engineering
+	•	Demonstrate high-performance contract design
+	•	Explore the limits of gas optimization
+	•	Document reusable patterns for smart contract security
+	•	Share useful primitives for other developers and auditors
